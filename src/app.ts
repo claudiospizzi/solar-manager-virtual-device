@@ -8,7 +8,7 @@ const router = express();
 
 // Logging
 router.use((req, _res, next) => {
-  console.log(`${req.method} ${req.url}`);
+  console.log(`${new Date().toISOString()}   ${req.ip}   ${req.method} ${req.url}`);
   next();
 });
 
