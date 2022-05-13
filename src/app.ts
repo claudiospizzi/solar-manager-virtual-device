@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import http from 'http';
 import express from 'express';
 import routes from './routes/mystrom-switch';
