@@ -28,7 +28,7 @@ router.use((req, res) => {
 });
 
 // Detect port
-let port = 5050;
+let port = 80;
 if (process.env.PORT) {
   const envPort = parseInt(process.env.PORT);
   if (!isNaN(envPort)) {
