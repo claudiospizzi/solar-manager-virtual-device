@@ -1,0 +1,62 @@
+{
+  "name": "solar-manager-virtual-device",
+  "version": "0.0.0",
+  "description": "Solar Manager Virtual Device to integrate unsupported devices into a smart home power management.",
+  "keywords": [
+    "solar-manager",
+    "solar",
+    "manager",
+    "virtual",
+    "device"
+  ],
+  "main": "dist/app.js",
+  "bin": {
+    "solar-manager-virtual-device": "dist/app.js"
+  },
+  "scripts": {
+    "build": "npm-run-all build:purge build:compile",
+    "build:purge": "del-cli --force dist",
+    "build:compile": "tsc",
+    "lint": "npm-run-all lint:prettier lint:eslint",
+    "lint:prettier": "prettier --ignore-path .eslintignore --check \"**/*.{js,ts,md}\"",
+    "lint:eslint": "eslint --ext .js,.ts .",
+    "fix": "npm-run-all fix:prettier fix:eslint",
+    "fix:prettier": "prettier --ignore-path .eslintignore --write \"**/*.{js,ts,md}\"",
+    "fix:eslint": "eslint --ext .js,.ts . --fix",
+    "preversion": "npm-run-all lint",
+    "version": "npm-run-all version:changelog version:stage",
+    "version:changelog": "replace-in-file \"Unreleased\" \"%npm_package_version%\" CHANGELOG.md",
+    "version:stage": "git add -A",
+    "postversion": "npm-run-all postversion:push postversion:pushtag",
+    "postversion:push": "git push",
+    "postversion:pushtag": "git push --tags",
+    "prepublishOnly": "npm-run-all build lint"
+  },
+  "author": "Claudio Spizzi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claudiospizzi/solar-manager-virtual-device.git"
+  },
+  "bugs": {
+    "url": "https://github.com/claudiospizzi/solar-manager-virtual-device/issues"
+  },
+  "homepage": "https://github.com/claudiospizzi/solar-manager-virtual-device#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "@types/express": "^4.17.13",
+    "del-cli": "^4.0.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin": "^1.0.1",
+    "eslint-plugin-prettier": "^3.4.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.6.2",
+    "replace-in-file": "^6.3.2",
+    "typescript": "^4.6.3"
+  }
+}
