@@ -20,9 +20,23 @@ This node module is able to mock a MyStrom Switch device to be used with the Sol
 
 ### Virtual Device Setup (this module)
 
+This module can be used within a Docker container. For example, the following Dockerfile can be used to build a Docker image for the virtual device. It's recommended to use a dedicated external network like a `macvlan` to have a dedicated IP address for the virtual device, as it's required to use port 80.
+
+```Dockerfile
+FROM node:alpine
+
+RUN npm install -g solar-manager-virtual-device
+
+ENTRYPOINT [ "/usr/local/bin/solar-manager-virtual-device", "/etc/solar-manager-virtual-device.json" ]
+```
+
 ### Solar Manager Configuration
 
+Within the Solar Manager, a new device can be added with the type `Smart Plug` and the name `MyStrom Energy Control Switch`. Specify the IP address of the virtual device as the `IP Address` field. Do not use any feature around the temperature, as this is currently not supported.
+
 ### Node-RED Integration
+
+Finally, the integration to the actual physical device needs to be implemented. The implementation must scan the report for the relay state to turn on or off. In addition, the current power usage should be reported every 5 seconds, as the Solar Manager will scan the device status every 5 seconds. This can be done by using the [node-red-contrib-mystrom-switch](https://flows.nodered.org/node/node-red-contrib-mystrom-switch) Node-RED module.
 
 ## API
 
